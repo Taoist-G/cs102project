@@ -76,26 +76,40 @@ public class KnightChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        if (source.getX() == destination.getX()) {
-            int row = source.getX();
-            for (int col = Math.min(source.getY(), destination.getY()) + 1;
-                 col < Math.max(source.getY(), destination.getY()); col++) {
-                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    return false;
-                }
-            }
-        } else if (source.getY() == destination.getY()) {
-            int col = source.getY();
-            for (int row = Math.min(source.getX(), destination.getX()) + 1;
-                 row < Math.max(source.getX(), destination.getX()); row++) {
-                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-                    return false;
-                }
-            }
-        } else { // Not on the same row or the same column.
+        int x = source.getX();
+        int y = source.getY();
+        int x1 = destination.getX();
+        int y1 = destination.getY();
+        int xMin = Math.min(x, x1);
+        int xMax = Math.max(x, x1);
+        int yMin = Math.min(y, y1);
+        int yMax = Math.max(y, y1);
+        if (yMax - yMin == 2 && xMax - xMin == 1){
+            return true;
+        }else if (yMax-yMin==1&&xMax-xMin==2){
+            return true;
+        }else {
             return false;
         }
-        return true;
+//        if (source.getX() == destination.getX()) {
+//            int row = source.getX();
+//            for (int col = Math.min(source.getY(), destination.getY()) + 1;
+//                 col < Math.max(source.getY(), destination.getY()); col++) {
+//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                    return false;
+//                }
+//            }
+//        } else if (source.getY() == destination.getY()) {
+//            int col = source.getY();
+//            for (int row = Math.min(source.getX(), destination.getX()) + 1;
+//                 row < Math.max(source.getX(), destination.getX()); row++) {
+//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                    return false;
+//                }
+//            }
+//        } else { // Not on the same row or the same column.
+//            return false;
+//        }
     }
 
     /**
@@ -107,11 +121,11 @@ public class KnightChessComponent extends ChessComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 //        g.drawImage(knightImage, 0, 0, getWidth() - 13, getHeight() - 20, this);
-        g.drawImage(knightImage, 0, 0, getWidth() , getHeight(), this);
+        g.drawImage(knightImage, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.BLACK);
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
-            g.drawOval(0, 0, getWidth() , getHeight());
+            g.drawOval(0, 0, getWidth(), getHeight());
         }
     }
 }

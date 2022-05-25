@@ -76,27 +76,86 @@ public class PawnChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        if (source.getX() == destination.getX()) {
-            int row = source.getX();
-            for (int col = Math.min(source.getY(), destination.getY()) + 1;
-                 col < Math.max(source.getY(), destination.getY()); col++) {
-                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+        int x = source.getX();
+        int y = source.getY();
+        int x1 = destination.getX();
+        int y1 = destination.getY();
+        int xMin = Math.min(x, x1);
+        int xMax = Math.max(x, x1);
+        int yMin = Math.min(y, y1);
+        int yMax = Math.max(y, y1);
+        if (getChessColor() == ChessColor.BLACK) {
+            if (x == 1) {
+                if (x1 - x == 1 && y == y1 && chessComponents[x + 1][y] instanceof EmptySlotComponent) {
+                    return true;
+                } else if (x1 - x == 2 && chessComponents[x + 1][y] instanceof EmptySlotComponent &&
+                        chessComponents[x + 2][y] instanceof EmptySlotComponent && y == y1) {
+                    return true;
+                } else if (x1 - x == 1 && y1 - y == 1 && !(chessComponents[x + 1][y + 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else if (x1 - x == 1 && y - y1 == 1 && !(chessComponents[x + 1][y - 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (x1 - x == 1 && y == y1 && chessComponents[x + 1][y] instanceof EmptySlotComponent) {
+                    return true;
+                } else if (x1 - x == 1 && y1 - y == 1 && !(chessComponents[x + 1][y + 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else if (x1 - x == 1 && y - y1 == 1 && !(chessComponents[x + 1][y - 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else {
                     return false;
                 }
             }
-        } else if (source.getY() == destination.getY()) {
-            int col = source.getY();
-            for (int row = Math.min(source.getX(), destination.getX()) + 1;
-                 row < Math.max(source.getX(), destination.getX()); row++) {
-                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+        }else {
+            if (x == 6) {
+                if (x - x1 == 1 && y == y1 && chessComponents[x - 1][y] instanceof EmptySlotComponent) {
+                    return true;
+                } else if (x - x1 == 2 && chessComponents[x - 1][y] instanceof EmptySlotComponent &&
+                        chessComponents[x - 2][y] instanceof EmptySlotComponent && y == y1) {
+                    return true;
+                } else if (x - x1 == 1 && y1 - y == 1 && !(chessComponents[x - 1][y + 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else if (x - x1 == 1 && y - y1 == 1 && !(chessComponents[x - 1][y - 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (x - x1 == 1 && y == y1 && chessComponents[x - 1][y] instanceof EmptySlotComponent) {
+                    return true;
+                } else if (x - x1 == 1 && y1 - y == 1 && !(chessComponents[x - 1][y + 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else if (x - x1 == 1 && y - y1 == 1 && !(chessComponents[x - 1][y - 1] instanceof EmptySlotComponent)) {
+                    return true;
+                } else {
                     return false;
                 }
             }
-        } else { // Not on the same row or the same column.
-            return false;
         }
-        return true;
     }
+//        if (source.getX() == destination.getX()) {
+//            int row = source.getX();
+//            for (int col = Math.min(source.getY(), destination.getY()) + 1;
+//                 col < Math.max(source.getY(), destination.getY()); col++) {
+//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                    return false;
+//                }
+//            }
+//        } else if (source.getY() == destination.getY()) {
+//            int col = source.getY();
+//            for (int row = Math.min(source.getX(), destination.getX()) + 1;
+//                 row < Math.max(source.getX(), destination.getX()); row++) {
+//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
+//                    return false;
+//                }
+//            }
+//        } else { // Not on the same row or the same column.
+//            return false;
+//        }
+
 
     /**
      * 注意这个方法，每当窗体受到了形状的变化，或者是通知要进行绘图的时候，就会调用这个方法进行画图。
@@ -107,11 +166,11 @@ public class PawnChessComponent extends ChessComponent {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 //        g.drawImage(pawnImage, 0, 0, getWidth() - 13, getHeight() - 20, this);
-        g.drawImage(pawnImage, 0, 0, getWidth() , getHeight(), this);
+        g.drawImage(pawnImage, 0, 0, getWidth(), getHeight(), this);
         g.setColor(Color.BLACK);
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
-            g.drawOval(0, 0, getWidth() , getHeight());
+            g.drawOval(0, 0, getWidth(), getHeight());
         }
     }
 }

@@ -76,6 +76,29 @@ public class KingChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
+        int x = source.getX();
+        int y = source.getY();
+        int x1 = destination.getX();
+        int y1 = destination.getY();
+        int xMin = Math.min(x, x1);
+        int xMax = Math.max(x, x1);
+        int yMin = Math.min(y, y1);
+        int yMax = Math.max(y, y1);
+        if (yMax-yMin==1){
+            if (xMax-xMin==1||xMax==xMin){
+                return true;
+            }else {
+                return false;
+            }
+        }else if (yMax==yMin){
+            if (xMax-xMin==1){
+                return true;
+            }else {
+                return false;
+            }
+        }else {
+            return false;
+        }
 //        if (source.getX() == destination.getX()) {
 //            int row = source.getX();
 //            for (int col = Math.min(source.getY(), destination.getY()) + 1;
@@ -95,7 +118,6 @@ public class KingChessComponent extends ChessComponent {
 //        } else { // Not on the same row or the same column.
 //            return false;
 //        }
-        return true;
     }
 
     /**

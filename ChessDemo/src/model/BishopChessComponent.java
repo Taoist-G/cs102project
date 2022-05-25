@@ -76,6 +76,32 @@ public class BishopChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
+        int x = source.getX();
+        int y = source.getY();
+        int x1 = destination.getX();
+        int y1 = destination.getY();
+        int xMin = Math.min(x, x1);
+        int xMax = Math.max(x, x1);
+        int yMin = Math.min(y, y1);
+        int yMax = Math.max(y, y1);
+        if (x + y == x1 + y1) {
+            for (int i = 1; i < yMax - yMin; i++) {
+                if (!(chessComponents[xMax - i][yMin + i] instanceof EmptySlotComponent)) {
+                    return false;
+                }
+            }
+        } else if (y - x == y1 - x1) {
+            for (int i = 1; i < yMax - yMin; i++) {
+                if (!(chessComponents[xMin + i][yMin + i] instanceof EmptySlotComponent)) {
+                    return false;
+                }
+            }
+        } else {
+            return false;
+        }
+        return true;
+    }
+
 
 //        if (source.getX() == destination.getX()) {
 //            int row = source.getX();
@@ -96,8 +122,8 @@ public class BishopChessComponent extends ChessComponent {
 //        } else { // Not on the same row or the same column.
 //            return false;
 //        }
-        return true;
-    }
+//        return true;
+//    }
 
     /**
      * 注意这个方法，每当窗体受到了形状的变化，或者是通知要进行绘图的时候，就会调用这个方法进行画图。
