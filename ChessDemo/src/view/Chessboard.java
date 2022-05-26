@@ -82,6 +82,10 @@ public class Chessboard extends JComponent {
 
         this.currentColor = WHITE;
 
+//        if(currentColor!=WHITE) {
+            this.currentColor = WHITE;
+//        }
+
         initRookOnBoard(0, 0, ChessColor.BLACK);
         initRookOnBoard(0, 7, ChessColor.BLACK);
         initRookOnBoard(7,0 , ChessColor.WHITE);
