@@ -34,61 +34,29 @@ public class ChessGameFrame extends JFrame {
         setSize(WIDTH, HEIGTH);
         setLocationRelativeTo(null); // Center the window.
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
-
+//        setLayout(null);
 
         setVisible(true);
 
+        addLabel();
+        addChessboard();
+        addLoadButton();
+        addRestartButton();
+        addBackButton();
 
 
 
 
 
-        Chessboard chessboard = new Chessboard(600, 600);
-        gameController = new GameController(chessboard);
-        chessboard.setLocation(HEIGTH / 10, HEIGTH / 10);
-        add(chessboard);
-
-        JLabel statusLabel = new JLabel("选项");
-        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
-        statusLabel.setSize(200, 60);
-        statusLabel.setFont(new Font("楷体", Font.BOLD, 30));
-        add(statusLabel);
-
-        JButton button1 = new JButton("PLAY");
-        button1.setLocation(HEIGTH, HEIGTH / 10 + 100);
-        button1.setSize(200, 60);
-        button1.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(button1);
-
-        button1.addActionListener(e -> {
-            System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
-            gameController.loadGameFromFile(path);
-        });
-
-        JButton button2 = new JButton("RESTART");
-        button2.setLocation(HEIGTH, HEIGTH / 10 + 200);
-        button2.setSize(200, 60);
-        button2.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(button2);
-
-        button2.addActionListener(e -> {
-            gameController.initialGame();
-        });
 
 
-        JButton button3 = new JButton("BACK");
-        button3.setLocation(HEIGTH, HEIGTH / 10 + 300);
-        button3.setSize(200, 60);
-        button3.setFont(new Font("restart", Font.BOLD, 20));
-        add(button3);
-
-        button3.addActionListener(e -> {
-            System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
 
 
-        });
+
+
+
+
+
         //设置背景图
         ImageIcon background = new ImageIcon("./images/bg.png");
         //将背景图进行压缩，一般如果你想显示一整张图片，就得把大小设置跟窗口一样
@@ -116,17 +84,15 @@ public class ChessGameFrame extends JFrame {
         chessboard.setLocation(HEIGTH / 10, HEIGTH / 10);
         add(chessboard);
     }
-
     /**
      * 在游戏面板中添加标签
      */
     private void addLabel() {
-        JLabel statusLabel = new JLabel("选项");
+        JLabel statusLabel = new JLabel("WHITE");
         statusLabel.setLocation(HEIGTH, HEIGTH / 10);
         statusLabel.setSize(200, 60);
-        statusLabel.setFont(new Font("楷体", Font.BOLD, 30));
+        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 30));
         add(statusLabel);
-        new GridLayout();
     }
 
 
@@ -142,8 +108,8 @@ public class ChessGameFrame extends JFrame {
             String path = JOptionPane.showInputDialog(this,"Input Path here");
             gameController.loadGameFromFile(path);
         });
-        new GridLayout();
     }
+
 
     //重置棋盘
     private void addRestartButton(){
@@ -156,9 +122,7 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             gameController.initialGame();
         });
-        new GridLayout();
     }
-
 
 
     //悔棋
@@ -176,6 +140,7 @@ public class ChessGameFrame extends JFrame {
 
         });
     }
+
 
 
 
