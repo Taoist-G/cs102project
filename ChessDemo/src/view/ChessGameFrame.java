@@ -89,7 +89,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     private void addLoadButton() {
-        JButton button = new JButton("PLAY");
+        JButton button = new JButton("LOAD");
         button.setLocation(HEIGTH, HEIGTH / 10 + 100);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
@@ -126,7 +126,7 @@ public class ChessGameFrame extends JFrame {
         add(button);
 
         button.addActionListener(e -> {
-            System.out.println("Click load");
+            System.out.println("Click back");
             String path = JOptionPane.showInputDialog(this,"Input Path here");
 
 

@@ -87,7 +87,7 @@ public class Chessboard extends JComponent {
 
 
         this.currentColor = WHITE;
-
+        statusLabel.setText(currentColor.toString());
 
         initRookOnBoard(0, 0, ChessColor.BLACK);
         initRookOnBoard(0, 7, ChessColor.BLACK);
