@@ -75,6 +75,50 @@ public class Chessboard extends JComponent {
         initPawnOnBoard(CHESSBOARD_SIZE - 2, 7, ChessColor.WHITE);
     }
 
+    public void initialGame(){
+        initiateEmptyChessboard();
+
+        initRookOnBoard(0, 0, ChessColor.BLACK);
+        initRookOnBoard(0, 7, ChessColor.BLACK);
+        initRookOnBoard(7,0 , ChessColor.WHITE);
+        initRookOnBoard(7, 7, ChessColor.WHITE);
+        initKingOnBoard(0, 4, ChessColor.BLACK);
+        initKingOnBoard(7, 4, ChessColor.WHITE);
+
+        initKnightOnBoard(0,1, ChessColor.BLACK);
+        initKnightOnBoard(0, 6, ChessColor.BLACK);
+        initKnightOnBoard(7, 1, ChessColor.WHITE);
+        initKnightOnBoard(7, 6, ChessColor.WHITE);
+
+        initQueenOnBoard(0, 3, ChessColor.BLACK);
+        initQueenOnBoard(7, 3, ChessColor.WHITE);
+
+        initPawnOnBoard(1,0, ChessColor.BLACK);
+        initPawnOnBoard(1,1,ChessColor.BLACK);
+        initPawnOnBoard(1,2, ChessColor.BLACK);
+        initPawnOnBoard(1,3, ChessColor.BLACK);
+        initPawnOnBoard(1,4, ChessColor.BLACK);
+        initPawnOnBoard(1,5, ChessColor.BLACK);
+        initPawnOnBoard(1,6, ChessColor.BLACK);
+        initPawnOnBoard(1,7, ChessColor.BLACK);
+        initPawnOnBoard(6,0, ChessColor.WHITE);
+        initPawnOnBoard(6,1, ChessColor.WHITE);
+        initPawnOnBoard(6,2, ChessColor.WHITE);
+        initPawnOnBoard(6,3, ChessColor.WHITE);
+        initPawnOnBoard(6,4, ChessColor.WHITE);
+        initPawnOnBoard(6,5, ChessColor.WHITE);
+        initPawnOnBoard(6,6, ChessColor.WHITE);
+        initPawnOnBoard(6,7, ChessColor.WHITE);
+
+        initBishopOnBoard(0,2, ChessColor.BLACK);
+        initBishopOnBoard(0,5, ChessColor.BLACK);
+        initBishopOnBoard(7,2, ChessColor.WHITE);
+        initBishopOnBoard(7,5, ChessColor.WHITE);
+
+
+        repaint();
+    }
+
     public ChessComponent[][] getChessComponents() {
         return chessComponents;
     }
