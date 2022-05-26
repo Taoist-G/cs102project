@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+import static model.ChessColor.BLACK;
 import static model.ChessColor.WHITE;
 
 /**
@@ -32,7 +33,11 @@ public class Chessboard extends JComponent {
     //all chessComponents in this chessboard are shared only one model controller
     private final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
+    public JLabel statusLabel;
 
+    public void setStatusLabel(JLabel statusLabel) {
+        this.statusLabel = statusLabel;
+    }
 
     public Chessboard(int width, int height) {
         setLayout(null); // Use absolute layout.
@@ -77,23 +82,21 @@ public class Chessboard extends JComponent {
         initPawnOnBoard(CHESSBOARD_SIZE - 2, 7, ChessColor.WHITE);
     }
 
-    public void initialGame(){
+    public void initialGame() {
         initiateEmptyChessboard();
+
 
         this.currentColor = WHITE;
 
-//        if(currentColor!=WHITE) {
-            this.currentColor = WHITE;
-//        }
 
         initRookOnBoard(0, 0, ChessColor.BLACK);
         initRookOnBoard(0, 7, ChessColor.BLACK);
-        initRookOnBoard(7,0 , ChessColor.WHITE);
+        initRookOnBoard(7, 0, ChessColor.WHITE);
         initRookOnBoard(7, 7, ChessColor.WHITE);
         initKingOnBoard(0, 4, ChessColor.BLACK);
         initKingOnBoard(7, 4, ChessColor.WHITE);
 
-        initKnightOnBoard(0,1, ChessColor.BLACK);
+        initKnightOnBoard(0, 1, ChessColor.BLACK);
         initKnightOnBoard(0, 6, ChessColor.BLACK);
         initKnightOnBoard(7, 1, ChessColor.WHITE);
         initKnightOnBoard(7, 6, ChessColor.WHITE);
@@ -101,27 +104,27 @@ public class Chessboard extends JComponent {
         initQueenOnBoard(0, 3, ChessColor.BLACK);
         initQueenOnBoard(7, 3, ChessColor.WHITE);
 
-        initPawnOnBoard(1,0, ChessColor.BLACK);
-        initPawnOnBoard(1,1,ChessColor.BLACK);
-        initPawnOnBoard(1,2, ChessColor.BLACK);
-        initPawnOnBoard(1,3, ChessColor.BLACK);
-        initPawnOnBoard(1,4, ChessColor.BLACK);
-        initPawnOnBoard(1,5, ChessColor.BLACK);
-        initPawnOnBoard(1,6, ChessColor.BLACK);
-        initPawnOnBoard(1,7, ChessColor.BLACK);
-        initPawnOnBoard(6,0, ChessColor.WHITE);
-        initPawnOnBoard(6,1, ChessColor.WHITE);
-        initPawnOnBoard(6,2, ChessColor.WHITE);
-        initPawnOnBoard(6,3, ChessColor.WHITE);
-        initPawnOnBoard(6,4, ChessColor.WHITE);
-        initPawnOnBoard(6,5, ChessColor.WHITE);
-        initPawnOnBoard(6,6, ChessColor.WHITE);
-        initPawnOnBoard(6,7, ChessColor.WHITE);
+        initPawnOnBoard(1, 0, ChessColor.BLACK);
+        initPawnOnBoard(1, 1, ChessColor.BLACK);
+        initPawnOnBoard(1, 2, ChessColor.BLACK);
+        initPawnOnBoard(1, 3, ChessColor.BLACK);
+        initPawnOnBoard(1, 4, ChessColor.BLACK);
+        initPawnOnBoard(1, 5, ChessColor.BLACK);
+        initPawnOnBoard(1, 6, ChessColor.BLACK);
+        initPawnOnBoard(1, 7, ChessColor.BLACK);
+        initPawnOnBoard(6, 0, ChessColor.WHITE);
+        initPawnOnBoard(6, 1, ChessColor.WHITE);
+        initPawnOnBoard(6, 2, ChessColor.WHITE);
+        initPawnOnBoard(6, 3, ChessColor.WHITE);
+        initPawnOnBoard(6, 4, ChessColor.WHITE);
+        initPawnOnBoard(6, 5, ChessColor.WHITE);
+        initPawnOnBoard(6, 6, ChessColor.WHITE);
+        initPawnOnBoard(6, 7, ChessColor.WHITE);
 
-        initBishopOnBoard(0,2, ChessColor.BLACK);
-        initBishopOnBoard(0,5, ChessColor.BLACK);
-        initBishopOnBoard(7,2, ChessColor.WHITE);
-        initBishopOnBoard(7,5, ChessColor.WHITE);
+        initBishopOnBoard(0, 2, ChessColor.BLACK);
+        initBishopOnBoard(0, 5, ChessColor.BLACK);
+        initBishopOnBoard(7, 2, ChessColor.WHITE);
+        initBishopOnBoard(7, 5, ChessColor.WHITE);
 
 
         repaint();
@@ -170,6 +173,7 @@ public class Chessboard extends JComponent {
 
     public void swapColor() {
         currentColor = currentColor == ChessColor.BLACK ? ChessColor.WHITE : ChessColor.BLACK;
+        statusLabel.setText(currentColor.toString());
     }
 
     private void initRookOnBoard(int row, int col, ChessColor color) {
@@ -177,26 +181,31 @@ public class Chessboard extends JComponent {
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initBishopOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new BishopChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initKingOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new KingChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initKnightOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new KnightChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initPawnOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new PawnChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
+
     private void initQueenOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new QueenChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
@@ -221,32 +230,40 @@ public class Chessboard extends JComponent {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 char chess = chessData.get(i).charAt(j);
-                if (chess=='B'){
-                    initBishopOnBoard(i,j,ChessColor.BLACK);
-                }else if (chess=='b'){
-                    initBishopOnBoard(i,j,ChessColor.WHITE);
-                }else if (chess=='K'){
-                    initKingOnBoard(i,j,ChessColor.BLACK);
-                }else if (chess=='k'){
-                    initKingOnBoard(i,j,ChessColor.WHITE);
-                }else if (chess=='N'){
-                    initKnightOnBoard(i,j,ChessColor.BLACK);
-                }else if (chess=='n'){
-                    initKnightOnBoard(i,j,ChessColor.WHITE);
-                }else if (chess=='P'){
-                    initPawnOnBoard(i,j,ChessColor.BLACK);
-                }else if (chess=='p'){
-                    initPawnOnBoard(i,j,ChessColor.WHITE);
-                }else if (chess=='Q'){
-                    initQueenOnBoard(i,j,ChessColor.BLACK);
-                }else if (chess=='q'){
-                    initQueenOnBoard(i,j,ChessColor.WHITE);
-                }else if (chess=='R'){
-                    initRookOnBoard(i,j,ChessColor.BLACK);
-                }else if (chess=='r'){
-                    initRookOnBoard(i,j,ChessColor.WHITE);
+                if (chess == 'B') {
+                    initBishopOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'b') {
+                    initBishopOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'K') {
+                    initKingOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'k') {
+                    initKingOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'N') {
+                    initKnightOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'n') {
+                    initKnightOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'P') {
+                    initPawnOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'p') {
+                    initPawnOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'Q') {
+                    initQueenOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'q') {
+                    initQueenOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'R') {
+                    initRookOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'r') {
+                    initRookOnBoard(i, j, ChessColor.WHITE);
                 }
             }
+        }
+        if (chessData.get(8).equals("w")) {
+            currentColor = WHITE;
+            statusLabel.setText(currentColor.toString());
+        }
+        if (chessData.get(8).equals("b")) {
+            currentColor = BLACK;
+            statusLabel.setText(currentColor.toString());
         }
         repaint();
     }

@@ -19,6 +19,7 @@ public class ChessGameFrame extends JFrame {
     private final int WIDTH;
     private final int HEIGTH;
     public final int CHESSBOARD_SIZE;
+    JLabel statusLabel;
 
     private GameController gameController;
     String[] button = {"PLAY","RESTART","BACK"};
@@ -45,18 +46,6 @@ public class ChessGameFrame extends JFrame {
         addBackButton();
 
 
-
-
-
-
-
-
-
-
-
-
-
-
         //设置背景图
         ImageIcon background = new ImageIcon("./images/bg.png");
         //将背景图进行压缩，一般如果你想显示一整张图片，就得把大小设置跟窗口一样
@@ -74,12 +63,12 @@ public class ChessGameFrame extends JFrame {
     }
 
 
-
     /**
      * 在游戏面板中添加棋盘
      */
     private void addChessboard() {
         Chessboard chessboard = new Chessboard(600, 600);
+        chessboard.setStatusLabel(statusLabel);
         gameController = new GameController(chessboard);
         chessboard.setLocation(HEIGTH / 10, HEIGTH / 10);
         add(chessboard);
@@ -88,13 +77,16 @@ public class ChessGameFrame extends JFrame {
      * 在游戏面板中添加标签
      */
     private void addLabel() {
-        JLabel statusLabel = new JLabel("WHITE");
+        statusLabel = new JLabel("WHITE");
         statusLabel.setLocation(HEIGTH, HEIGTH / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Rockwell", Font.BOLD, 30));
         add(statusLabel);
     }
 
+    public JLabel getStatusLabel() {
+        return statusLabel;
+    }
 
     private void addLoadButton() {
         JButton button = new JButton("PLAY");
