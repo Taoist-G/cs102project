@@ -22,7 +22,7 @@ public class ChessGameFrame extends JFrame {
     JLabel statusLabel;
 
     private GameController gameController;
-    String[] button = {"PLAY","RESTART","BACK"};
+    String[] button = {"PLAY", "RESTART", "BACK"};
     private ClickController controller;
 
     public ChessGameFrame(int width, int height) {
@@ -57,7 +57,7 @@ public class ChessGameFrame extends JFrame {
         //将图片添加到JLable标签
         JLabel jlabel = new JLabel(backgrounds);
         //设置标签的大小
-        jlabel.setBounds(0,0, getWidth(),getHeight() );
+        jlabel.setBounds(0, 0, getWidth(), getHeight());
         //将图片添加到窗口
         add(jlabel);
 
@@ -74,12 +74,13 @@ public class ChessGameFrame extends JFrame {
         chessboard.setLocation(HEIGTH / 10, HEIGTH / 10);
         add(chessboard);
     }
+
     /**
      * 在游戏面板中添加标签
      */
     private void addLabel() {
         statusLabel = new JLabel("WHITE");
-        statusLabel.setLocation(HEIGTH+40, HEIGTH / 10);
+        statusLabel.setLocation(HEIGTH + 40, HEIGTH / 10);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
         add(statusLabel);
@@ -98,14 +99,14 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            String path = JOptionPane.showInputDialog(this, "Input Path here");
             gameController.loadGameFromFile(path);
         });
     }
 
 
     //重置棋盘
-    private void addRestartButton(){
+    private void addRestartButton() {
         JButton button = new JButton("RESTART");
         button.setLocation(HEIGTH, HEIGTH / 10 + 200);
         button.setSize(200, 60);
@@ -119,7 +120,7 @@ public class ChessGameFrame extends JFrame {
 
 
     //悔棋
-    private void addBackButton(){
+    private void addBackButton() {
         JButton button = new JButton("BACK");
         button.setLocation(HEIGTH, HEIGTH / 10 + 300);
         button.setSize(200, 60);
@@ -128,7 +129,7 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click back");
-            String path = JOptionPane.showInputDialog(this,"Input Path here");
+            String path = JOptionPane.showInputDialog(this, "Input Path here");
 
 
         });
@@ -138,7 +139,7 @@ public class ChessGameFrame extends JFrame {
 //        logLabel.setText(msg);
 //    }
 
-    private void addSaveButton(){
+    private void addSaveButton() {
 
         JButton button = new JButton("SAVE");
         button.setLocation(HEIGTH, HEIGTH / 10 + 500);
@@ -162,7 +163,7 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
-    private void addThemeButton(){
+    private void addThemeButton() {
         JButton button = new JButton("BACK");
         button.setLocation(HEIGTH, HEIGTH / 10 + 400);
         button.setSize(200, 60);
@@ -170,7 +171,6 @@ public class ChessGameFrame extends JFrame {
         add(button);
 
         button.addActionListener(e -> {
-
 
 
         });
