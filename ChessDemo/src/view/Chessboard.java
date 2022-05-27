@@ -1,11 +1,13 @@
 package view;
 
 
+import controller.GameController;
 import model.*;
 import controller.ClickController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.nio.file.Path;
 import java.util.List;
 
 import static model.ChessColor.BLACK;
@@ -224,7 +226,59 @@ public class Chessboard extends JComponent {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
     }
 
-    public void loadGame(List<String> chessData) {
+    public void loadGame(List<String> chessData,String path) {
+        if (chessData.size()==0){
+            JOptionPane.showMessageDialog(this,
+                    "The board is not 8*8.", "error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!(chessData.size() == 9)){
+            if (chessData.get(chessData.size()-1).equals("w")||chessData.get(chessData.size()-1).equals("b")){
+                JOptionPane.showMessageDialog(this,
+                        "The board is not 8*8.", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }else {
+                JOptionPane.showMessageDialog(this,
+                        " Missing next move", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
+
+//        boolean n = true;
+        for (int i = 0; i < 8; i++) {
+            if ( !(chessData.get(i).length() == 8)) {
+//                n = false;
+                JOptionPane.showMessageDialog(this,
+                        "The board is not 8*8.", "error", JOptionPane.ERROR_MESSAGE);
+                return;
+
+            }
+        }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                char qi = chessData.get(i).charAt(j);
+                if (qi != 'B' && qi != 'b' && qi != 'K' && qi != 'k' && qi != 'N' && qi != 'n' && qi != 'P'
+                        && qi != 'p' && qi != 'Q' && qi != 'q' && qi != 'R' && qi != 'r' && qi != '0'){
+                    JOptionPane.showMessageDialog(this,
+                            "The pieces are not one of six, or not black and white.",
+                            "error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
+
+        }
+        if (!(chessData.get(8).equals("w")||chessData.get(8).equals("b"))){
+            JOptionPane.showMessageDialog(this,
+                    " Missing next move", "error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        if (!path.endsWith(".txt")){
+            JOptionPane.showMessageDialog(this,
+                    "Wrong file format", "error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+//        if (n) {
         chessData.forEach(System.out::println);
         initiateEmptyChessboard();
         for (int i = 0; i < 8; i++) {
@@ -267,6 +321,7 @@ public class Chessboard extends JComponent {
         }
         repaint();
     }
+//    }
 
     public String getChessboardGraph() {
         StringBuilder graph = new StringBuilder();
@@ -309,7 +364,7 @@ public class Chessboard extends JComponent {
                 if (chess instanceof RookChessComponent && chess.getChessColor().equals(WHITE)) {
                     graph.append("r");
                 }
-                if (chess instanceof EmptySlotComponent){
+                if (chess instanceof EmptySlotComponent) {
                     graph.append("0");
                 }
                 if (j == 7) {
@@ -317,10 +372,10 @@ public class Chessboard extends JComponent {
                 }
             }
         }
-        if (currentColor.equals(WHITE)){
+        if (currentColor.equals(WHITE)) {
             graph.append("w");
         }
-        if (currentColor.equals(BLACK)){
+        if (currentColor.equals(BLACK)) {
             graph.append("b");
         }
 
