@@ -44,6 +44,7 @@ public class ChessGameFrame extends JFrame {
         addRestartButton();
         addBackButton();
         addSaveButton();
+        addThemeButton();
 
 
         //设置背景图
@@ -78,9 +79,9 @@ public class ChessGameFrame extends JFrame {
      */
     private void addLabel() {
         statusLabel = new JLabel("WHITE");
-        statusLabel.setLocation(HEIGTH, HEIGTH / 10);
+        statusLabel.setLocation(HEIGTH+40, HEIGTH / 10);
         statusLabel.setSize(200, 60);
-        statusLabel.setFont(new Font("Rockwell", Font.BOLD, 30));
+        statusLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
         add(statusLabel);
     }
 
@@ -122,7 +123,7 @@ public class ChessGameFrame extends JFrame {
         JButton button = new JButton("BACK");
         button.setLocation(HEIGTH, HEIGTH / 10 + 300);
         button.setSize(200, 60);
-        button.setFont(new Font("restart", Font.BOLD, 20));
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
 
         button.addActionListener(e -> {
@@ -142,7 +143,7 @@ public class ChessGameFrame extends JFrame {
         JButton button = new JButton("SAVE");
         button.setLocation(HEIGTH, HEIGTH / 10 + 500);
         button.setSize(200, 60);
-        button.setFont(new Font("restart", Font.BOLD, 20));
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
 
 
@@ -156,6 +157,20 @@ public class ChessGameFrame extends JFrame {
                 filePath += ".txt";
             }
             gameController.writeDataToFile(filePath);
+
+
+        });
+    }
+
+    private void addThemeButton(){
+        JButton button = new JButton("BACK");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 400);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+
+        button.addActionListener(e -> {
+
 
 
         });
