@@ -4,6 +4,10 @@ package controller;
 import model.ChessComponent;
 import view.Chessboard;
 
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.File;
+
 public class ClickController {
     private final Chessboard chessboard;
     private ChessComponent first;
@@ -13,6 +17,7 @@ public class ClickController {
     }
 
     public void onClick(ChessComponent chessComponent) {
+        ClickController.play();
         if (first == null) {
             if (handleFirst(chessComponent)) {
                 chessComponent.setSelected(true);
@@ -54,4 +59,21 @@ public class ClickController {
         return chessComponent.getChessColor() != chessboard.getCurrentColor() &&
                 first.canMoveTo(chessboard.getChessComponents(), chessComponent.getChessboardPoint());
     }
+
+    public static void play() {
+
+        final String f="music/press.wav";
+        Clip c=null;
+
+        try
+        {
+            c= AudioSystem.getClip();
+            c.open(AudioSystem.getAudioInputStream(new File(f)));
+            c.loop(0);
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
