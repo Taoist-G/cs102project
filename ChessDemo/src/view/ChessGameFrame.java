@@ -43,6 +43,7 @@ public class ChessGameFrame extends JFrame {
         addLoadButton();
         addRestartButton();
         addBackButton();
+        addSaveButton();
 
 
         //设置背景图
@@ -132,7 +133,33 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
+//    public void printLog(String msg) {
+//        logLabel.setText(msg);
+//    }
 
+    private void addSaveButton(){
+
+        JButton button = new JButton("SAVE");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 500);
+        button.setSize(200, 60);
+        button.setFont(new Font("restart", Font.BOLD, 20));
+        add(button);
+
+
+        button.addActionListener(e -> {
+            //        printLog("clicked Save Btn");
+            String filePath = JOptionPane.showInputDialog(this, "input the path here");
+            if (filePath == null || filePath.isEmpty()) {
+                return;
+            }
+            if (!filePath.endsWith(".txt")) {
+                filePath += ".txt";
+            }
+            gameController.writeDataToFile(filePath);
+
+
+        });
+    }
 
 
 }

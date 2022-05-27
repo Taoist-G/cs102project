@@ -2,6 +2,8 @@ package controller;
 
 import view.Chessboard;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -27,6 +29,19 @@ public class GameController {
 
     public void initialGame() {
         chessboard.initialGame();
+    }
+
+    public void writeDataToFile(String fileName) {
+        //todo: write data into file
+        try {
+            BufferedWriter wr = new BufferedWriter(new FileWriter(fileName));
+            wr.write(chessboard.getChessboardGraph());
+            System.out.println(chessboard.getChessboardGraph());
+            wr.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }
 

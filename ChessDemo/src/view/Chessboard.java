@@ -267,4 +267,66 @@ public class Chessboard extends JComponent {
         }
         repaint();
     }
+
+    public String getChessboardGraph() {
+        StringBuilder graph = new StringBuilder();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                ChessComponent chess = chessComponents[i][j];
+                if (chess instanceof BishopChessComponent && chess.getChessColor().equals(BLACK)) {
+                    graph.append("B");
+                }
+                if (chess instanceof BishopChessComponent && chess.getChessColor().equals(WHITE)) {
+                    graph.append("b");
+                }
+                if (chess instanceof KingChessComponent && chess.getChessColor().equals(BLACK)) {
+                    graph.append("K");
+                }
+                if (chess instanceof KingChessComponent && chess.getChessColor().equals(WHITE)) {
+                    graph.append("k");
+                }
+                if (chess instanceof KnightChessComponent && chess.getChessColor().equals(BLACK)) {
+                    graph.append("N");
+                }
+                if (chess instanceof KnightChessComponent && chess.getChessColor().equals(WHITE)) {
+                    graph.append("n");
+                }
+                if (chess instanceof PawnChessComponent && chess.getChessColor().equals(BLACK)) {
+                    graph.append("P");
+                }
+                if (chess instanceof PawnChessComponent && chess.getChessColor().equals(WHITE)) {
+                    graph.append("p");
+                }
+                if (chess instanceof QueenChessComponent && chess.getChessColor().equals(BLACK)) {
+                    graph.append("Q");
+                }
+                if (chess instanceof QueenChessComponent && chess.getChessColor().equals(WHITE)) {
+                    graph.append("q");
+                }
+                if (chess instanceof RookChessComponent && chess.getChessColor().equals(BLACK)) {
+                    graph.append("R");
+                }
+                if (chess instanceof RookChessComponent && chess.getChessColor().equals(WHITE)) {
+                    graph.append("r");
+                }
+                if (chess instanceof EmptySlotComponent){
+                    graph.append("0");
+                }
+                if (j == 7) {
+                    graph.append("\n");
+                }
+            }
+        }
+        if (currentColor.equals(WHITE)){
+            graph.append("w");
+        }
+        if (currentColor.equals(BLACK)){
+            graph.append("b");
+        }
+
+        return graph.toString();
+
+    }
+
+
 }
