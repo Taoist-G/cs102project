@@ -4,9 +4,15 @@ import controller.ClickController;
 import controller.GameController;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.crypto.dom.DOMCryptoContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.io.File;
+
+
 
 import static javax.swing.text.StyleConstants.Background;
 
@@ -109,8 +115,22 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this, "Input Path here");
-            gameController.loadGameFromFile(path);
+
+
+            ClickController.play();
+
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("txt文件(*.txt)","txt");
+            fileChooser.setFileFilter(fileFilter);
+            fileChooser.setDialogTitle("打开文件");
+            int result = fileChooser.showOpenDialog(this);
+            if(result == JFileChooser.APPROVE_OPTION){
+                System.out.println("打开文件："+fileChooser.getSelectedFile().getAbsolutePath());
+                File file = fileChooser.getSelectedFile();
+
+                gameController.loadGameFromFile(file.getAbsolutePath());
+                ClickController.play();
+            }
         });
     }
 
@@ -125,6 +145,7 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             gameController.initialGame();
+            ClickController.play();
         });
     }
 
@@ -145,7 +166,7 @@ public class ChessGameFrame extends JFrame {
             chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
 
 //            String path = JOptionPane.showInputDialog(this, "Input Path here");
-
+            ClickController.play();
 
         });
     }
@@ -173,7 +194,7 @@ public class ChessGameFrame extends JFrame {
                 filePath += ".txt";
             }
             gameController.writeDataToFile(filePath);
-
+            ClickController.play();
 
         });
     }
@@ -186,6 +207,7 @@ public class ChessGameFrame extends JFrame {
         add(button);
 
         button.addActionListener(e -> {
+            ClickController.play();
 
 
         });

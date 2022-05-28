@@ -26,6 +26,7 @@ public class GameController {
         }
         return null;
     }
+
     public String loadGameFromString(String str) {
         String chessData = str;
         chessboard.loadGame(chessData);
