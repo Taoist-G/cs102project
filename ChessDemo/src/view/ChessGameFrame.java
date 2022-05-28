@@ -50,9 +50,7 @@ public class ChessGameFrame extends JFrame {
 
 
         addLabel();
-
         addChessboard(chessboard);
-
         addLoadButton();
         addRestartButton();
         addBackButton();
