@@ -1,6 +1,7 @@
 package model;
 
 import controller.ClickController;
+import view.Chessboard;
 import view.ChessboardPoint;
 
 import javax.imageio.ImageIO;
@@ -47,7 +48,7 @@ public class BishopChessComponent extends ChessComponent {
      * @param color 棋子颜色
      */
 
-    private void initiatebishopImage(ChessColor color) {
+    private void initiateBishopImage(ChessColor color) {
         try {
             loadResource();
             if (color == ChessColor.WHITE) {
@@ -62,7 +63,7 @@ public class BishopChessComponent extends ChessComponent {
 
     public BishopChessComponent(ChessboardPoint chessboardPoint, Point location, ChessColor color, ClickController listener, int size) {
         super(chessboardPoint, location, color, listener, size);
-        initiatebishopImage(color);
+        initiateBishopImage(color);
     }
 
     /**
@@ -139,6 +140,11 @@ public class BishopChessComponent extends ChessComponent {
         if (isSelected()) { // Highlights the model if selected.
             g.setColor(Color.RED);
             g.drawOval(0, 0, getWidth(), getHeight());
+//            for (int i = 0; i < 8; i++) {
+//                for (int j = 0; j < 8; j++) {
+//                    Chessboard.
+//                }
+//            }
         }
     }
 }
