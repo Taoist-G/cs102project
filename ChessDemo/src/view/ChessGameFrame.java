@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static javax.swing.text.StyleConstants.Background;
 
@@ -52,6 +54,7 @@ public class ChessGameFrame extends JFrame {
         addBackButton();
         addSaveButton();
         addThemeButton();
+        addPlaybackButton();
 
 
         //设置背景图
@@ -88,6 +91,8 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加标签
      */
+
+    //当前行棋方
     private void addLabel() {
         statusLabel = new JLabel("WHITE");
         statusLabel.setLocation(HEIGTH + 40, HEIGTH / 10);
@@ -100,6 +105,7 @@ public class ChessGameFrame extends JFrame {
         return statusLabel;
     }
 
+    //载入游戏
     private void addLoadButton() {
         JButton button = new JButton("LOAD");
         button.setLocation(HEIGTH, HEIGTH / 10 + 100);
@@ -160,6 +166,7 @@ public class ChessGameFrame extends JFrame {
 //        logLabel.setText(msg);
 //    }
 
+    //存储
     private void addSaveButton() {
 
         JButton button = new JButton("SAVE");
@@ -183,7 +190,48 @@ public class ChessGameFrame extends JFrame {
 
         });
     }
+    public void playback() {
 
+        int i = 0;
+        java.util.Timer timer = new Timer();//实例化Timer类
+        while (i < chessboard.clickController.getGraph().size()) {
+            int finalI = i;
+            timer.schedule(new TimerTask() {
+                public void run() {
+            chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
+                    this.cancel();
+                }
+            },  1000);//毫秒
+
+            timer.schedule(new TimerTask() {
+                public void run() {
+
+                    chessboard.loadGame(chessboard.clickController.getGraph().get(finalI));
+                    this.cancel();
+
+                }
+
+            }, (finalI + 2) * 1000);//毫秒
+            i++;
+
+        }
+
+
+    }
+
+    private void addPlaybackButton() {
+        JButton button = new JButton("PLAYBACK");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 570);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+
+        button.addActionListener(e -> {
+            playback();
+        });
+    }
+
+    //主题更换
     private void addThemeButton() {
         JButton button = new JButton("THEME");
         button.setLocation(HEIGTH, HEIGTH / 10 + 400);

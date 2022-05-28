@@ -9,6 +9,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static model.ChessColor.BLACK;
 import static model.ChessColor.WHITE;
@@ -443,7 +445,25 @@ public class Chessboard extends JComponent {
     }
 //    }
 
-
-
-
+//    public void playback() {
+//
+//        int i = 0;
+//        Timer timer = new Timer();//实例化Timer类
+//        while (i < chessboard.clickController.getGraph().) {
+//            int finalI = i;
+//            timer.schedule(new TimerTask() {
+//                public void run() {
+//
+//                    System.out.println(a.get(finalI));
+//                    this.cancel();
+//
+//                }
+//
+//            }, (finalI + 2) * 1000);//毫秒
+//            i++;
+//
+//        }
+//
+//
+//    }
 }
