@@ -227,11 +227,19 @@ public class Chessboard extends JComponent {
     }
 
     public void loadGame(List<String> chessData,String path) {
+
+        if (!path.endsWith(".txt")){
+            JOptionPane.showMessageDialog(this,
+                    "Wrong file format", "error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         if (chessData.size()==0){
             JOptionPane.showMessageDialog(this,
                     "The board is not 8*8.", "error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         if (!(chessData.size() == 9)){
             if (chessData.get(chessData.size()-1).equals("w")||chessData.get(chessData.size()-1).equals("b")){
                 JOptionPane.showMessageDialog(this,
@@ -254,6 +262,7 @@ public class Chessboard extends JComponent {
 
             }
         }
+
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 char qi = chessData.get(i).charAt(j);
@@ -267,16 +276,13 @@ public class Chessboard extends JComponent {
             }
 
         }
+
         if (!(chessData.get(8).equals("w")||chessData.get(8).equals("b"))){
             JOptionPane.showMessageDialog(this,
                     " Missing next move", "error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!path.endsWith(".txt")){
-            JOptionPane.showMessageDialog(this,
-                    "Wrong file format", "error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+
 
 //        if (n) {
         chessData.forEach(System.out::println);
