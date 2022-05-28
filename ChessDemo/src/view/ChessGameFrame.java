@@ -110,6 +110,9 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             System.out.println("Click load");
             String path = JOptionPane.showInputDialog(this, "Input Path here");
+                    if (path == null || path.isEmpty()) {
+                return;
+            }
             gameController.loadGameFromFile(path);
         });
     }
@@ -139,13 +142,16 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click back");
+            if (chessboard.clickController.getCounter()==0){
+                return;
+            }
+
             backCounter++;
-
-//            gameController.loadGameFromString(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter));
-            chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
-
-//            String path = JOptionPane.showInputDialog(this, "Input Path here");
-
+            if ((chessboard.clickController.getCounter()-backCounter-1)<0){
+                chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
+            }else {
+                chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
+            }
 
         });
     }
