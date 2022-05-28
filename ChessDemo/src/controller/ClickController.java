@@ -6,14 +6,28 @@ import view.Chessboard;
 
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
-public class ClickController {
+public class ClickController extends Component {
     private final Chessboard chessboard;
     private ChessComponent first;
+    int counter = 0;
+    ArrayList<String> graph=new ArrayList<>();
+
 
     public ClickController(Chessboard chessboard) {
         this.chessboard = chessboard;
+    }
+
+    public int getCounter() {
+        return counter;
+    }
+
+    public ArrayList<String> getGraph() {
+        return graph;
     }
 
     public void onClick(ChessComponent chessComponent) {
@@ -34,6 +48,21 @@ public class ClickController {
                 //repaint in swap chess method.
                 chessboard.swapChessComponents(first, chessComponent);
                 chessboard.swapColor();
+                graph.add(chessboard.getChessboardGraph());
+                System.out.println(graph.get(counter));
+                if (!(graph.get(counter).contains("K"))){
+                    JOptionPane.showMessageDialog(this,
+                            "The white player win",
+                            "END", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }else if (!(graph.get(counter).contains("k"))){
+                    JOptionPane.showMessageDialog(this,
+                            "The black player win",
+                            "END", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                counter++;
+
 
                 first.setSelected(false);
                 first = null;
@@ -62,16 +91,14 @@ public class ClickController {
 
     public static void play() {
 
-        final String f="music/press.wav";
-        Clip c=null;
+        final String f = "music/press.wav";
+        Clip c = null;
 
-        try
-        {
-            c= AudioSystem.getClip();
+        try {
+            c = AudioSystem.getClip();
             c.open(AudioSystem.getAudioInputStream(new File(f)));
             c.loop(0);
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

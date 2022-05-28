@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import static javax.swing.text.StyleConstants.Background;
 
 
+
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
  */
@@ -20,11 +21,15 @@ public class ChessGameFrame extends JFrame {
     private final int HEIGTH;
     public final int CHESSBOARD_SIZE;
     JLabel statusLabel;
+    int backCounter=0;
+
+
+    public int getBackCounter() {
+        return backCounter;
+    }
 
     private GameController gameController;
-    String[] button = {"PLAY", "RESTART", "BACK"};
-    private ClickController controller;
-
+    Chessboard chessboard = new Chessboard(600, 600);
     public ChessGameFrame(int width, int height) {
         setTitle("Chess Game!"); //设置标题
         this.WIDTH = width;
@@ -39,7 +44,9 @@ public class ChessGameFrame extends JFrame {
 
 
         addLabel();
-        addChessboard();
+
+        addChessboard(chessboard);
+
         addLoadButton();
         addRestartButton();
         addBackButton();
@@ -67,13 +74,16 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加棋盘
      */
-    private void addChessboard() {
-        Chessboard chessboard = new Chessboard(600, 600);
+    private void addChessboard(Chessboard chessboard) {
+//        Chessboard chessboard = new Chessboard(600, 600);
         chessboard.setStatusLabel(statusLabel);
         gameController = new GameController(chessboard);
         chessboard.setLocation(HEIGTH / 10, HEIGTH / 10);
         add(chessboard);
     }
+
+
+
 
     /**
      * 在游戏面板中添加标签
@@ -129,7 +139,12 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click back");
-            String path = JOptionPane.showInputDialog(this, "Input Path here");
+            backCounter++;
+
+//            gameController.loadGameFromString(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter));
+            chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
+
+//            String path = JOptionPane.showInputDialog(this, "Input Path here");
 
 
         });

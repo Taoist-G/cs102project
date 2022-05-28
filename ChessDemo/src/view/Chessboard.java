@@ -32,8 +32,14 @@ public class Chessboard extends JComponent {
 
     private final ChessComponent[][] chessComponents = new ChessComponent[CHESSBOARD_SIZE][CHESSBOARD_SIZE];
     private ChessColor currentColor = WHITE;
+
+//    public ClickController getClickController() {
+//        return clickController;
+//    }
+
+
     //all chessComponents in this chessboard are shared only one model controller
-    private final ClickController clickController = new ClickController(this);
+    public final ClickController clickController = new ClickController(this);
     private final int CHESS_SIZE;
     public JLabel statusLabel;
 
@@ -388,6 +394,56 @@ public class Chessboard extends JComponent {
         return graph.toString();
 
     }
+
+//    public
+
+    public void loadGame(String chessData) {
+
+//        if (n) {
+        initiateEmptyChessboard();
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                char chess = chessData.charAt(i*9+j);
+                if (chess == 'B') {
+                    initBishopOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'b') {
+                    initBishopOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'K') {
+                    initKingOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'k') {
+                    initKingOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'N') {
+                    initKnightOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'n') {
+                    initKnightOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'P') {
+                    initPawnOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'p') {
+                    initPawnOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'Q') {
+                    initQueenOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'q') {
+                    initQueenOnBoard(i, j, ChessColor.WHITE);
+                } else if (chess == 'R') {
+                    initRookOnBoard(i, j, ChessColor.BLACK);
+                } else if (chess == 'r') {
+                    initRookOnBoard(i, j, ChessColor.WHITE);
+                }
+            }
+        }
+        if (chessData.charAt(72)=='w') {
+            currentColor = WHITE;
+            statusLabel.setText(currentColor.toString());
+        }
+        if (chessData.charAt(72)=='b') {
+            currentColor = BLACK;
+            statusLabel.setText(currentColor.toString());
+        }
+        repaint();
+    }
+//    }
+
+
 
 
 }
