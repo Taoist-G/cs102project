@@ -55,7 +55,6 @@ public class ChessGameFrame extends JFrame {
         addRestartButton();
         addBackButton();
         addSaveButton();
-        addThemeButton();
         addPlaybackButton();
 
 
@@ -97,7 +96,7 @@ public class ChessGameFrame extends JFrame {
     //当前行棋方
     private void addLabel() {
         statusLabel = new JLabel("WHITE");
-        statusLabel.setLocation(HEIGTH + 40, HEIGTH / 10);
+        statusLabel.setLocation(HEIGTH + 34, (HEIGTH / 10)-12);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
         add(statusLabel);
@@ -114,6 +113,11 @@ public class ChessGameFrame extends JFrame {
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
+
+        button.setBorderPainted(false);
+        button.setText(null);
+        button.setBorder(null);
+        button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
             System.out.println("Click load");
@@ -151,8 +155,14 @@ public class ChessGameFrame extends JFrame {
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
 
+        button.setBorderPainted(false);
+        button.setText(null);
+        button.setBorder(null);
+        button.setContentAreaFilled(false);
+
         button.addActionListener(e -> {
             gameController.initialGame();
+            ClickController.play();
             chessboard.chongZhi();
             setBackCounter(0);
 
@@ -171,7 +181,13 @@ public class ChessGameFrame extends JFrame {
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
 
+        button.setBorderPainted(false);
+        button.setText(null);
+        button.setBorder(null);
+        button.setContentAreaFilled(false);
+
         button.addActionListener(e -> {
+            ClickController.play();
             System.out.println("Click back");
             if (chessboard.clickController.getCounter()==0){
                 return;
@@ -195,13 +211,18 @@ public class ChessGameFrame extends JFrame {
     private void addSaveButton() {
 
         JButton button = new JButton("SAVE");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 500);
+        button.setLocation(HEIGTH, HEIGTH / 10 + 430);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
+        button.setBorderPainted(false);
+        button.setText(null);
+        button.setBorder(null);
+        button.setContentAreaFilled(false);
 
 
         button.addActionListener(e -> {
+            ClickController.play();
             //        printLog("clicked Save Btn");
             String filePath = JOptionPane.showInputDialog(null,"请输入新建文本:\n","存储功能",JOptionPane.PLAIN_MESSAGE);
             if (filePath == null || filePath.isEmpty()) {
@@ -224,6 +245,7 @@ public class ChessGameFrame extends JFrame {
             int finalI = i;
             timer.schedule(new TimerTask() {
                 public void run() {
+
             chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
                     this.cancel();
                 }
@@ -247,29 +269,19 @@ public class ChessGameFrame extends JFrame {
 
     private void addPlaybackButton() {
         JButton button = new JButton("PLAYBACK");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 570);
+        button.setLocation(HEIGTH, HEIGTH / 10 + 530);
         button.setSize(200, 60);
         button.setFont(new Font("Rockwell", Font.BOLD, 20));
         add(button);
+        button.setBorderPainted(false);
+        button.setText(null);
+        button.setBorder(null);
+        button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
             playback();
+            ClickController.play();
         });
     }
-
-    //主题更换
-    private void addThemeButton() {
-        JButton button = new JButton("THEME");
-        button.setLocation(HEIGTH, HEIGTH / 10 + 400);
-        button.setSize(200, 60);
-        button.setFont(new Font("Rockwell", Font.BOLD, 20));
-        add(button);
-
-        button.addActionListener(e -> {
-
-
-        });
-    }
-
 
 }
