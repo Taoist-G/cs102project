@@ -1,6 +1,7 @@
 package model;
 
 import controller.ClickController;
+import view.Chessboard;
 import view.ChessboardPoint;
 
 import javax.imageio.ImageIO;
@@ -19,6 +20,7 @@ public class KingChessComponent extends ChessComponent {
      */
     private static Image KING_WHITE;
     private static Image KING_BLACK;
+
 
     /**
      * 王棋子对象自身的图片，是上面两种中的一种
@@ -73,6 +75,7 @@ public class KingChessComponent extends ChessComponent {
      * @return 王棋子移动的合法性
      */
 
+
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
@@ -84,6 +87,35 @@ public class KingChessComponent extends ChessComponent {
         int xMax = Math.max(x, x1);
         int yMin = Math.min(y, y1);
         int yMax = Math.max(y, y1);
+
+
+        if (getChessColor() == ChessColor.WHITE){
+            if (x==7&&y==4&&chessComponents[7][7]instanceof RookChessComponent
+            &&chessComponents[7][5]instanceof EmptySlotComponent&&chessComponents[7][6]instanceof EmptySlotComponent){
+                if (x1==7&&y1==6){
+                    ChessboardPoint a = new ChessboardPoint(7,5);
+                    swapChessComponentsWhite(chessComponents[7][5],chessComponents[7][7]);
+//                    add(chessComponents[7][5]=new RookChessComponent(a,chessComponents[7][5].getLocation(),ChessColor.WHITE, clickController, CHESS_SIZE));
+//                   initRookOnBoard(7,5,ChessColor.WHITE);
+                    return true;
+                }
+            }
+        }
+
+        if (getChessColor() == ChessColor.BLACK){
+            if (x==0&&y==4&&chessComponents[0][7]instanceof RookChessComponent
+                    &&chessComponents[0][5]instanceof EmptySlotComponent&&chessComponents[0][6]instanceof EmptySlotComponent){
+                if (x1==0&&y1==6){
+                    ChessboardPoint a = new ChessboardPoint(0,5);
+                    swapChessComponentsBlack(chessComponents[0][5],chessComponents[0][7]);
+//                    add(chessComponents[7][5]=new RookChessComponent(a,chessComponents[7][5].getLocation(),ChessColor.WHITE, clickController, CHESS_SIZE));
+//                   initRookOnBoard(7,5,ChessColor.WHITE);
+                    return true;
+                }
+            }
+        }
+
+
         if (yMax-yMin==1){
             if (xMax-xMin==1||xMax==xMin){
                 return true;
@@ -99,6 +131,9 @@ public class KingChessComponent extends ChessComponent {
         }else {
             return false;
         }
+
+
+
 //        if (source.getX() == destination.getX()) {
 //            int row = source.getX();
 //            for (int col = Math.min(source.getY(), destination.getY()) + 1;

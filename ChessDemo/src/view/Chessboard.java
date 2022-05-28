@@ -186,7 +186,7 @@ public class Chessboard extends JComponent {
         statusLabel.setText(currentColor.toString());
     }
 
-    private void initRookOnBoard(int row, int col, ChessColor color) {
+    public void initRookOnBoard(int row, int col, ChessColor color) {
         ChessComponent chessComponent = new RookChessComponent(new ChessboardPoint(row, col), calculatePoint(row, col), color, clickController, CHESS_SIZE);
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
