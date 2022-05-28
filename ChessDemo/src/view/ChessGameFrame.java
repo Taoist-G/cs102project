@@ -5,10 +5,12 @@ import controller.GameController;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.tools.JavaFileManager;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.nio.file.FileStore;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -121,6 +123,7 @@ public class ChessGameFrame extends JFrame {
             ClickController.play();
 
             JFileChooser fileChooser = new JFileChooser();
+
             FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("txt文件(*.txt)","txt");
             fileChooser.setFileFilter(fileFilter);
             fileChooser.setDialogTitle("打开文件");
@@ -196,7 +199,7 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             //        printLog("clicked Save Btn");
-            String filePath = JOptionPane.showInputDialog(this, "input the path here");
+            String filePath = JOptionPane.showInputDialog(null,"请输入新建文本:\n","存储功能",JOptionPane.PLAIN_MESSAGE);
             if (filePath == null || filePath.isEmpty()) {
                 return;
             }
@@ -204,6 +207,7 @@ public class ChessGameFrame extends JFrame {
                 filePath += ".txt";
             }
             gameController.writeDataToFile(filePath);
+
 
 
         });
