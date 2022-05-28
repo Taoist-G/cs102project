@@ -132,11 +132,11 @@ public class ChessGameFrame extends JFrame {
                 gameController.loadGameFromFile(file.getAbsolutePath());
                 ClickController.play();
             }
-         String path = JOptionPane.showInputDialog(this, "Input Path here");
-            if (path == null || path.isEmpty()) {
-                return;
-            }
-            gameController.loadGameFromFile(path);
+//         String path = JOptionPane.showInputDialog(this, "Input Path here");
+//            if (path == null || path.isEmpty()) {
+//                return;
+//            }
+//            gameController.loadGameFromFile(path);
 
         });
     }
