@@ -153,9 +153,15 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             gameController.initialGame();
+            chessboard.chongZhi();
+            setBackCounter(0);
+
         });
     }
 
+    public void setBackCounter(int backCounter) {
+        this.backCounter = backCounter;
+    }
 
     //悔棋
     private void addBackButton() {

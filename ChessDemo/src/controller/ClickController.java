@@ -17,6 +17,9 @@ public class ClickController extends Component {
     int counter = 0;
     ArrayList<String> graph=new ArrayList<>();
 
+    public void setGraph(ArrayList<String> graph) {
+        this.graph = graph;
+    }
 
     public ClickController(Chessboard chessboard) {
         this.chessboard = chessboard;
@@ -24,6 +27,10 @@ public class ClickController extends Component {
 
     public int getCounter() {
         return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
     }
 
     public ArrayList<String> getGraph() {

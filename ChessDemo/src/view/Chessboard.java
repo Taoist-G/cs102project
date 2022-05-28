@@ -45,6 +45,11 @@ public class Chessboard extends JComponent {
     private final int CHESS_SIZE;
     public JLabel statusLabel;
 
+    public void chongZhi (){
+         clickController.setCounter(0);
+         clickController.getGraph().clear();
+    }
+
     public void setStatusLabel(JLabel statusLabel) {
         this.statusLabel = statusLabel;
     }
