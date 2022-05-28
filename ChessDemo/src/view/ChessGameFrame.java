@@ -4,9 +4,11 @@ import controller.ClickController;
 import controller.GameController;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -115,11 +117,27 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click load");
-            String path = JOptionPane.showInputDialog(this, "Input Path here");
-                    if (path == null || path.isEmpty()) {
+
+            ClickController.play();
+
+            JFileChooser fileChooser = new JFileChooser();
+            FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("txt文件(*.txt)","txt");
+            fileChooser.setFileFilter(fileFilter);
+            fileChooser.setDialogTitle("打开文件");
+            int result = fileChooser.showOpenDialog(this);
+            if(result == JFileChooser.APPROVE_OPTION){
+                System.out.println("打开文件："+fileChooser.getSelectedFile().getAbsolutePath());
+                File file = fileChooser.getSelectedFile();
+
+                gameController.loadGameFromFile(file.getAbsolutePath());
+                ClickController.play();
+            }
+         String path = JOptionPane.showInputDialog(this, "Input Path here");
+            if (path == null || path.isEmpty()) {
                 return;
             }
             gameController.loadGameFromFile(path);
+
         });
     }
 
