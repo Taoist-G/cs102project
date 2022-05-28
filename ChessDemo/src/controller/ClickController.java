@@ -31,6 +31,9 @@ public class ClickController extends Component {
     }
 
     public void onClick(ChessComponent chessComponent) {
+//        if (graph.size()==0) {
+//            graph.add("RNBQKB0R\nPPPPPPPP\n00000N00\n00000000\n00000000\n0000000n\npppppppp\nrnbqkb0r\nw");
+//        }
         ClickController.play();
         if (first == null) {
             if (handleFirst(chessComponent)) {

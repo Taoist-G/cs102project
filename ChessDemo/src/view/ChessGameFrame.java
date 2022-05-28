@@ -4,15 +4,11 @@ import controller.ClickController;
 import controller.GameController;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.xml.crypto.dom.DOMCryptoContext;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.io.File;
-
-
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static javax.swing.text.StyleConstants.Background;
 
@@ -58,6 +54,7 @@ public class ChessGameFrame extends JFrame {
         addBackButton();
         addSaveButton();
         addThemeButton();
+        addPlaybackButton();
 
 
         //设置背景图
@@ -94,6 +91,8 @@ public class ChessGameFrame extends JFrame {
     /**
      * 在游戏面板中添加标签
      */
+
+    //当前行棋方
     private void addLabel() {
         statusLabel = new JLabel("WHITE");
         statusLabel.setLocation(HEIGTH + 40, HEIGTH / 10);
@@ -106,6 +105,7 @@ public class ChessGameFrame extends JFrame {
         return statusLabel;
     }
 
+    //载入游戏
     private void addLoadButton() {
         JButton button = new JButton("LOAD");
         button.setLocation(HEIGTH, HEIGTH / 10 + 100);
@@ -115,22 +115,11 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click load");
-
-
-            ClickController.play();
-
-            JFileChooser fileChooser = new JFileChooser();
-            FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("txt文件(*.txt)","txt");
-            fileChooser.setFileFilter(fileFilter);
-            fileChooser.setDialogTitle("打开文件");
-            int result = fileChooser.showOpenDialog(this);
-            if(result == JFileChooser.APPROVE_OPTION){
-                System.out.println("打开文件："+fileChooser.getSelectedFile().getAbsolutePath());
-                File file = fileChooser.getSelectedFile();
-
-                gameController.loadGameFromFile(file.getAbsolutePath());
-                ClickController.play();
+            String path = JOptionPane.showInputDialog(this, "Input Path here");
+                    if (path == null || path.isEmpty()) {
+                return;
             }
+            gameController.loadGameFromFile(path);
         });
     }
 
@@ -145,7 +134,6 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             gameController.initialGame();
-            ClickController.play();
         });
     }
 
@@ -160,13 +148,16 @@ public class ChessGameFrame extends JFrame {
 
         button.addActionListener(e -> {
             System.out.println("Click back");
+            if (chessboard.clickController.getCounter()==0){
+                return;
+            }
+
             backCounter++;
-
-//            gameController.loadGameFromString(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter));
-            chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
-
-//            String path = JOptionPane.showInputDialog(this, "Input Path here");
-            ClickController.play();
+            if ((chessboard.clickController.getCounter()-backCounter-1)<0){
+                chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
+            }else {
+                chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
+            }
 
         });
     }
@@ -175,6 +166,7 @@ public class ChessGameFrame extends JFrame {
 //        logLabel.setText(msg);
 //    }
 
+    //存储
     private void addSaveButton() {
 
         JButton button = new JButton("SAVE");
@@ -194,11 +186,52 @@ public class ChessGameFrame extends JFrame {
                 filePath += ".txt";
             }
             gameController.writeDataToFile(filePath);
-            ClickController.play();
+
 
         });
     }
+    public void playback() {
 
+        int i = 0;
+        java.util.Timer timer = new Timer();//实例化Timer类
+        while (i < chessboard.clickController.getGraph().size()) {
+            int finalI = i;
+            timer.schedule(new TimerTask() {
+                public void run() {
+            chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
+                    this.cancel();
+                }
+            },  1000);//毫秒
+
+            timer.schedule(new TimerTask() {
+                public void run() {
+
+                    chessboard.loadGame(chessboard.clickController.getGraph().get(finalI));
+                    this.cancel();
+
+                }
+
+            }, (finalI + 2) * 1000);//毫秒
+            i++;
+
+        }
+
+
+    }
+
+    private void addPlaybackButton() {
+        JButton button = new JButton("PLAYBACK");
+        button.setLocation(HEIGTH, HEIGTH / 10 + 570);
+        button.setSize(200, 60);
+        button.setFont(new Font("Rockwell", Font.BOLD, 20));
+        add(button);
+
+        button.addActionListener(e -> {
+            playback();
+        });
+    }
+
+    //主题更换
     private void addThemeButton() {
         JButton button = new JButton("THEME");
         button.setLocation(HEIGTH, HEIGTH / 10 + 400);
@@ -207,7 +240,6 @@ public class ChessGameFrame extends JFrame {
         add(button);
 
         button.addActionListener(e -> {
-            ClickController.play();
 
 
         });
