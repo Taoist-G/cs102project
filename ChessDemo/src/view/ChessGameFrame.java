@@ -328,9 +328,9 @@ public class ChessGameFrame extends JFrame {
                 }
             }
         }, 1000, 1000);//毫秒
-        countLabel.setLocation(HEIGTH - 20, (HEIGTH / 10) - 20);
+        countLabel.setLocation(HEIGTH - 400, (HEIGTH / 10) - 70);
         countLabel.setSize(200, 60);
-        countLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+        countLabel.setFont(new Font("Rockwell", Font.BOLD, 60));
         countLabel.setVisible(true);
         add(countLabel);
 
