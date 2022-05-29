@@ -41,6 +41,7 @@ public class Main {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     HomeFrame.dispose();
+                    ChessGameFrame.i=30;
                     mainFrame.setVisible(true);
                     music.playMusic();
                 }
