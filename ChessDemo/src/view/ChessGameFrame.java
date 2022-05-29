@@ -28,7 +28,9 @@ public class ChessGameFrame extends JFrame {
     public final int CHESSBOARD_SIZE;
     JLabel statusLabel;
     int backCounter = 0;
-    int i = 30;
+    public static int i = 30;
+
+    Timer timer;
 
     public void setI(int i) {
         this.i = i;
@@ -53,7 +55,7 @@ public class ChessGameFrame extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); //设置程序关闭按键，如果点击右上方的叉就游戏全部关闭了
 //        setLayout(null);
 
-
+        addCountDown();
         addLabel();
         addChessboard(chessboard);
         addLoadButton();
@@ -61,7 +63,7 @@ public class ChessGameFrame extends JFrame {
         addBackButton();
         addSaveButton();
         addPlaybackButton();
-//        addCountDown();
+
 
 
         //设置背景图
@@ -99,45 +101,11 @@ public class ChessGameFrame extends JFrame {
 
     //当前行棋方
     private void addLabel() {
-        statusLabel = new JLabel("WHITE");
-//        countLabel = new JLabel("30");
-//        int i = 30;
-//        java.util.Timer timer = new Timer();//实例化Timer类
-//        while (i > 0) {
-//            int finalI = i;
-//            if (i==30){
-//                timer.schedule(new TimerTask() {
-//                    public void run() {
-//                        countLabel.setText("30");
-//                        this.cancel();
-//                    }
-//                }, 1000);//毫秒
-//            }else if (i==29) {
-//                timer.schedule(new TimerTask() {
-//                    public void run() {
-//                        statusLabel.setText("29");
-//                        this.cancel();
-//                    }
-//                }, (31-29) * 1000);//毫秒
-//            }else {
-//                timer.schedule(new TimerTask() {
-//                    public void run() {
-//                        statusLabel.setText("28");
-//                        this.cancel();
-//                    }
-//                }, (31-28) * 1000);//毫秒
-//            }
-//            i--;
-//
-//        }
+        statusLabel = new JLabel(chessboard.getCurrentColor().toString());
         statusLabel.setLocation(HEIGTH + 34, (HEIGTH / 10) - 12);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
         add(statusLabel);
-//        countLabel.setLocation(HEIGTH + 34, (HEIGTH / 10) - 200);
-//        countLabel.setSize(200, 60);
-//        countLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
-//        add(countLabel);
     }
 
     public JLabel getStatusLabel() {
@@ -211,6 +179,7 @@ public class ChessGameFrame extends JFrame {
     public void setBackCounter(int backCounter) {
         this.backCounter = backCounter;
     }
+
 
     //悔棋
     private void addBackButton() {
@@ -322,6 +291,45 @@ public class ChessGameFrame extends JFrame {
             ClickController.play();
         });
     }
+
+    private void addCountDown() {
+        JLabel countLabel = new JLabel("30");
+        if (timer == null) {
+            timer = new Timer();//实例化Timer类
+        }
+        timer.schedule(new TimerTask() {
+            public void run() {
+                i--;
+                countLabel.setText(i + "s");
+//                this.cancel();
+                if (i==0){
+                    i=30;
+                    if (chessboard.getCurrentColor().equals(ChessColor.WHITE)) {
+                        chessboard.setCurrentColor(ChessColor.BLACK);
+                        statusLabel.setText("BLACK");
+                    }else {
+                        chessboard.setCurrentColor(ChessColor.WHITE);
+                        statusLabel.setText("WHITE");
+                    }
+                    chessboard.getClickController().setFirst(null);
+                    for (int j = 0; j < 8; j++) {
+                        for (int k = 0; k < 8; k++) {
+                            chessboard.getChessComponents()[j][k].setSelected(false);
+                            chessboard.getChessComponents()[j][k].repaint();
+                        }
+                    }
+
+                }
+            }
+        }, 1000, 1000);//毫秒
+        countLabel.setLocation(HEIGTH - 20, (HEIGTH / 10) - 20);
+        countLabel.setSize(200, 60);
+        countLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+        countLabel.setVisible(true);
+        add(countLabel);
+
+    }
+
 
 //    private void addCountDown() {
 //        JLabel countLabel = new JLabel("30");

@@ -2,6 +2,7 @@ package controller;
 
 
 import model.ChessComponent;
+import view.ChessGameFrame;
 import view.Chessboard;
 
 import javax.sound.sampled.AudioSystem;
@@ -19,6 +20,7 @@ public class ClickController extends Component {
 
     public void setGraph(ArrayList<String> graph) {
         this.graph = graph;
+
     }
 
     public ClickController(Chessboard chessboard) {
@@ -35,6 +37,14 @@ public class ClickController extends Component {
 
     public ArrayList<String> getGraph() {
         return graph;
+    }
+
+    public ChessComponent getFirst() {
+        return first;
+    }
+
+    public void setFirst(ChessComponent first) {
+        this.first = first;
     }
 
     public void onClick(ChessComponent chessComponent) {
@@ -72,6 +82,7 @@ public class ClickController extends Component {
                     return;
                 }
                 counter++;
+                ChessGameFrame.i=30;
 
 
                 first.setSelected(false);
