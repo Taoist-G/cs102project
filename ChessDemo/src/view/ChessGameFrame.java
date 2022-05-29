@@ -202,6 +202,7 @@ public class ChessGameFrame extends JFrame {
             gameController.initialGame();
             ClickController.play();
             chessboard.chongZhi();
+            chessboard.setCurrentColor(ChessColor.WHITE);
             setBackCounter(0);
 
         });
