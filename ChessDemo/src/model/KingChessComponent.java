@@ -100,9 +100,7 @@ public class KingChessComponent extends ChessComponent {
                     return true;
                 }
             }
-        }
-
-        if (getChessColor() == ChessColor.BLACK){
+        }else if (getChessColor() == ChessColor.BLACK){
             if (x==0&&y==4&&chessComponents[0][7]instanceof RookChessComponent
                     &&chessComponents[0][5]instanceof EmptySlotComponent&&chessComponents[0][6]instanceof EmptySlotComponent){
                 if (x1==0&&y1==6){

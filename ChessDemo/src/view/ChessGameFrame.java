@@ -2,6 +2,7 @@ package view;
 
 import controller.ClickController;
 import controller.GameController;
+import model.ChessColor;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -17,7 +18,6 @@ import java.util.TimerTask;
 import static javax.swing.text.StyleConstants.Background;
 
 
-
 /**
  * 这个类表示游戏过程中的整个游戏界面，是一切的载体
  */
@@ -27,8 +27,12 @@ public class ChessGameFrame extends JFrame {
     private final int HEIGTH;
     public final int CHESSBOARD_SIZE;
     JLabel statusLabel;
-    int backCounter=0;
+    int backCounter = 0;
+    int i = 30;
 
+    public void setI(int i) {
+        this.i = i;
+    }
 
     public int getBackCounter() {
         return backCounter;
@@ -36,6 +40,7 @@ public class ChessGameFrame extends JFrame {
 
     private GameController gameController;
     Chessboard chessboard = new Chessboard(600, 600);
+
     public ChessGameFrame(int width, int height) {
         setTitle("Chess Game!"); //设置标题
         this.WIDTH = width;
@@ -56,6 +61,7 @@ public class ChessGameFrame extends JFrame {
         addBackButton();
         addSaveButton();
         addPlaybackButton();
+//        addCountDown();
 
 
         //设置背景图
@@ -87,8 +93,6 @@ public class ChessGameFrame extends JFrame {
     }
 
 
-
-
     /**
      * 在游戏面板中添加标签
      */
@@ -96,10 +100,44 @@ public class ChessGameFrame extends JFrame {
     //当前行棋方
     private void addLabel() {
         statusLabel = new JLabel("WHITE");
-        statusLabel.setLocation(HEIGTH + 34, (HEIGTH / 10)-12);
+//        countLabel = new JLabel("30");
+//        int i = 30;
+//        java.util.Timer timer = new Timer();//实例化Timer类
+//        while (i > 0) {
+//            int finalI = i;
+//            if (i==30){
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("30");
+//                        this.cancel();
+//                    }
+//                }, 1000);//毫秒
+//            }else if (i==29) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        statusLabel.setText("29");
+//                        this.cancel();
+//                    }
+//                }, (31-29) * 1000);//毫秒
+//            }else {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        statusLabel.setText("28");
+//                        this.cancel();
+//                    }
+//                }, (31-28) * 1000);//毫秒
+//            }
+//            i--;
+//
+//        }
+        statusLabel.setLocation(HEIGTH + 34, (HEIGTH / 10) - 12);
         statusLabel.setSize(200, 60);
         statusLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
         add(statusLabel);
+//        countLabel.setLocation(HEIGTH + 34, (HEIGTH / 10) - 200);
+//        countLabel.setSize(200, 60);
+//        countLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+//        add(countLabel);
     }
 
     public JLabel getStatusLabel() {
@@ -126,12 +164,12 @@ public class ChessGameFrame extends JFrame {
 
             JFileChooser fileChooser = new JFileChooser();
 
-            FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("txt文件(*.txt)","txt");
+            FileNameExtensionFilter fileFilter = new FileNameExtensionFilter("txt文件(*.txt)", "txt");
             fileChooser.setFileFilter(fileFilter);
             fileChooser.setDialogTitle("打开文件");
             int result = fileChooser.showOpenDialog(this);
-            if(result == JFileChooser.APPROVE_OPTION){
-                System.out.println("打开文件："+fileChooser.getSelectedFile().getAbsolutePath());
+            if (result == JFileChooser.APPROVE_OPTION) {
+                System.out.println("打开文件：" + fileChooser.getSelectedFile().getAbsolutePath());
                 File file = fileChooser.getSelectedFile();
 
                 gameController.loadGameFromFile(file.getAbsolutePath());
@@ -189,15 +227,15 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             ClickController.play();
             System.out.println("Click back");
-            if (chessboard.clickController.getCounter()==0){
+            if (chessboard.clickController.getCounter() == 0) {
                 return;
             }
 
             backCounter++;
-            if ((chessboard.clickController.getCounter()-backCounter-1)<0){
+            if ((chessboard.clickController.getCounter() - backCounter - 1) < 0) {
                 chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
-            }else {
-                chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter()-backCounter-1));
+            } else {
+                chessboard.loadGame(chessboard.clickController.getGraph().get(chessboard.clickController.getCounter() - backCounter - 1));
             }
 
         });
@@ -224,7 +262,7 @@ public class ChessGameFrame extends JFrame {
         button.addActionListener(e -> {
             ClickController.play();
             //        printLog("clicked Save Btn");
-            String filePath = JOptionPane.showInputDialog(null,"请输入新建文本:\n","存储功能",JOptionPane.PLAIN_MESSAGE);
+            String filePath = JOptionPane.showInputDialog(null, "请输入新建文本:\n", "存储功能", JOptionPane.PLAIN_MESSAGE);
             if (filePath == null || filePath.isEmpty()) {
                 return;
             }
@@ -234,9 +272,9 @@ public class ChessGameFrame extends JFrame {
             gameController.writeDataToFile(filePath);
 
 
-
         });
     }
+
     public void playback() {
 
         int i = 0;
@@ -246,10 +284,10 @@ public class ChessGameFrame extends JFrame {
             timer.schedule(new TimerTask() {
                 public void run() {
 
-            chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
+                    chessboard.loadGame("RNBQKBNR\nPPPPPPPP\n00000000\n00000000\n00000000\n00000000\npppppppp\nrnbqkbnr\nw");
                     this.cancel();
                 }
-            },  1000);//毫秒
+            }, 1000);//毫秒
 
             timer.schedule(new TimerTask() {
                 public void run() {
@@ -284,4 +322,252 @@ public class ChessGameFrame extends JFrame {
         });
     }
 
+//    private void addCountDown() {
+//        JLabel countLabel = new JLabel("30");
+//
+//        java.util.Timer timer = new Timer();//实例化Timer类
+//        while (i > 0) {
+//            int finalI = i;
+//            if (i == 30) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("30");
+//                        this.cancel();
+//                    }
+//                }, 1000);//毫秒
+//            } else if (i == 29) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("29");
+//                        this.cancel();
+//                    }
+//                }, (31 - 29) * 1000);//毫秒
+//            } else if (i == 28) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("28");
+//                        this.cancel();
+//                    }
+//                }, (31 - 28) * 1000);//毫秒
+//            } else if (i == 27) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("27");
+//                        this.cancel();
+//                    }
+//                }, (31 - 27) * 1000);//毫秒
+//            } else if (i == 26) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("26");
+//                        this.cancel();
+//                    }
+//                }, (31 - 26) * 1000);//毫秒
+//            } else if (i == 25) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("25");
+//                        this.cancel();
+//                    }
+//                }, (31 - 25) * 1000);//毫秒
+//            } else if (i == 24) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("24");
+//                        this.cancel();
+//                    }
+//                }, (31 - 24) * 1000);//毫秒
+//            } else if (i == 23) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("23");
+//                        this.cancel();
+//                    }
+//                }, (31 - 23) * 1000);//毫秒
+//            } else if (i == 22) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("22");
+//                        this.cancel();
+//                    }
+//                }, (31 - 22) * 1000);//毫秒
+//            } else if (i == 21) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("21");
+//                        this.cancel();
+//                    }
+//                }, (31 - 21) * 1000);//毫秒
+//            } else if (i == 20) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("20");
+//                        this.cancel();
+//                    }
+//                }, (31 - 20) * 1000);//毫秒
+//            } else if (i == 19) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("19");
+//                        this.cancel();
+//                    }
+//                }, (31 - 19) * 1000);//毫秒
+//            } else if (i == 18) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("18");
+//                        this.cancel();
+//                    }
+//                }, (31 - 18) * 1000);//毫秒
+//            } else if (i == 17) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("17");
+//                        this.cancel();
+//                    }
+//                }, (31 - 17) * 1000);//毫秒
+//            } else if (i == 16) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("16");
+//                        this.cancel();
+//                    }
+//                }, (31 - 16) * 1000);//毫秒
+//            } else if (i == 15) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("15");
+//                        this.cancel();
+//                    }
+//                }, (31 - 15) * 1000);//毫秒
+//            } else if (i == 14) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("14");
+//                        this.cancel();
+//                    }
+//                }, (31 - 14) * 1000);//毫秒
+//            } else if (i == 13) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("13");
+//                        this.cancel();
+//                    }
+//                }, (31 - 13) * 1000);//毫秒
+//            } else if (i == 12) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("12");
+//                        this.cancel();
+//                    }
+//                }, (31 - 12) * 1000);//毫秒
+//            } else if (i == 11) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("11");
+//                        this.cancel();
+//                    }
+//                }, (31 - 11) * 1000);//毫秒
+//            } else if (i == 10) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("10");
+//                        this.cancel();
+//                    }
+//                }, (31 - 10) * 1000);//毫秒
+//            } else if (i == 9) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("9");
+//                        this.cancel();
+//                    }
+//                }, (31 - 9) * 1000);//毫秒
+//            } else if (i == 8) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("8");
+//                        this.cancel();
+//                    }
+//                }, (31 - 8) * 1000);//毫秒
+//            } else if (i == 7) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("7");
+//                        this.cancel();
+//                    }
+//                }, (31 - 7) * 1000);//毫秒
+//            } else if (i == 6) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("6");
+//                        this.cancel();
+//                    }
+//                }, (31 - 6) * 1000);//毫秒
+//            } else if (i == 5) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("5");
+//                        this.cancel();
+//                    }
+//                }, (31 - 5) * 1000);//毫秒
+//            } else if (i == 4) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("4");
+//                        this.cancel();
+//                    }
+//                }, (31 - 4) * 1000);//毫秒
+//            } else if (i == 3) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("3");
+//                        this.cancel();
+//                    }
+//                }, (31 - 3) * 1000);//毫秒
+//            } else if (i == 2) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("2");
+//                        this.cancel();
+//                    }
+//                }, (31 - 2) * 1000);//毫秒
+//            } else if (i == 1) {
+//                timer.schedule(new TimerTask() {
+//                    public void run() {
+//                        countLabel.setText("1");
+//                        this.cancel();
+//                    }
+//                }, (31 - 1) * 1000);//毫秒
+//                if (chessboard.getCurrentColor().equals(ChessColor.WHITE)) {
+//                    chessboard.setCurrentColor(ChessColor.BLACK);
+//                } else if (chessboard.getCurrentColor().equals(ChessColor.BLACK)) {
+//                    chessboard.setCurrentColor(ChessColor.WHITE);
+//                }
+//            }
+////            }else if (i==0){
+////                i=30;
+////                timer.schedule(new TimerTask() {
+////                    public void run() {
+////                        countLabel.setText("0");
+////                        this.cancel();
+////                    }
+////                }, (31 - 0) * 1000);//毫秒
+////                if (chessboard.getCurrentColor().equals(ChessColor.WHITE)){
+////                    chessboard.setCurrentColor(ChessColor.BLACK);
+////                }else if (chessboard.getCurrentColor().equals(ChessColor.BLACK)){
+////                    chessboard.setCurrentColor(ChessColor.WHITE);
+////                }
+////            }
+//            i--;
+//
+//        }
+//        countLabel.setLocation(HEIGTH - 20, (HEIGTH / 10) - 20);
+//        countLabel.setSize(200, 60);
+//        countLabel.setFont(new Font("Berlin Sans FB", Font.BOLD, 30));
+//        countLabel.setVisible(true);
+//        add(countLabel);
+//    }
+
 }
+
+

@@ -50,6 +50,10 @@ public class Chessboard extends JComponent {
          clickController.getGraph().clear();
     }
 
+    public void setCurrentColor(ChessColor currentColor) {
+        this.currentColor = currentColor;
+    }
+
     public void setStatusLabel(JLabel statusLabel) {
         this.statusLabel = statusLabel;
     }
