@@ -126,6 +126,7 @@ public class ChessGameFrame extends JFrame {
         button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
+            i=30;
             System.out.println("Click load");
 
             ClickController.play();
@@ -167,6 +168,7 @@ public class ChessGameFrame extends JFrame {
         button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
+            i=30;
             gameController.initialGame();
             ClickController.play();
             chessboard.chongZhi();
@@ -195,6 +197,7 @@ public class ChessGameFrame extends JFrame {
         button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
+            i=30;
             ClickController.play();
             System.out.println("Click back");
             if (chessboard.clickController.getCounter() == 0) {
@@ -230,6 +233,7 @@ public class ChessGameFrame extends JFrame {
 
 
         button.addActionListener(e -> {
+            i=30;
             ClickController.play();
             //        printLog("clicked Save Btn");
             String filePath = JOptionPane.showInputDialog(null, "请输入新建文本:\n", "存储功能", JOptionPane.PLAIN_MESSAGE);
@@ -246,6 +250,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     public void playback() {
+        timer.cancel();
 
         int i = 0;
         java.util.Timer timer = new Timer();//实例化Timer类
@@ -287,6 +292,7 @@ public class ChessGameFrame extends JFrame {
         button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
+            i=30;
             playback();
             ClickController.play();
         });
