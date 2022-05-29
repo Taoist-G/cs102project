@@ -250,7 +250,7 @@ public class ChessGameFrame extends JFrame {
     }
 
     public void playback() {
-        timer.cancel();
+        i=30;
 
         int i = 0;
         java.util.Timer timer = new Timer();//实例化Timer类
