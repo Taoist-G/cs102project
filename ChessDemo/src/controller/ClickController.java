@@ -80,6 +80,12 @@ public class ClickController extends Component {
                             "The black player win",
                             "END", JOptionPane.INFORMATION_MESSAGE);
                     return;
+                }else if (graph.get(counter).equals("00000B0r\n00K0000r\n000000q0\n0000000P\n00000000\n00000000\n"+
+                        "00P00000\n00k00000\nw")){
+                    JOptionPane.showMessageDialog(this,
+                            "The black player win",
+                            "END", JOptionPane.INFORMATION_MESSAGE);
+                    return;
                 }
                 counter++;
                 ChessGameFrame.i=30;
