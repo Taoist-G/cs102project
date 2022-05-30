@@ -126,7 +126,7 @@ public class ChessGameFrame extends JFrame {
         button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
-            i=30;
+            i=40;
             System.out.println("Click load");
 
             ClickController.play();
@@ -233,7 +233,7 @@ public class ChessGameFrame extends JFrame {
 
 
         button.addActionListener(e -> {
-            i=30;
+            i=40;
             ClickController.play();
             //        printLog("clicked Save Btn");
             String filePath = JOptionPane.showInputDialog(null, "请输入新建文本:\n", "存储功能", JOptionPane.PLAIN_MESSAGE);
@@ -292,7 +292,7 @@ public class ChessGameFrame extends JFrame {
         button.setContentAreaFilled(false);
 
         button.addActionListener(e -> {
-            i=30;
+            i=40;
             playback();
             ClickController.play();
         });
