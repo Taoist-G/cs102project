@@ -19,6 +19,9 @@ public class EmptySlotComponent extends ChessComponent {
     public boolean canMoveTo(ChessComponent[][] chessboard, ChessboardPoint destination) {
         return false;
     }
+//    public void allCanMoveTo(ChessComponent[][] allCanChessboard){
+//        return;
+//    }
 
     @Override
     public void loadResource() throws IOException {

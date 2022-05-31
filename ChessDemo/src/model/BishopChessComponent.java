@@ -85,7 +85,9 @@ public class BishopChessComponent extends ChessComponent {
         int xMax = Math.max(x, x1);
         int yMin = Math.min(y, y1);
         int yMax = Math.max(y, y1);
-        if (x + y == x1 + y1) {
+        if (chessComponents[x][y].getChessColor().equals(chessComponents[x1][y1].getChessColor())){
+            return false;
+        }else if (x + y == x1 + y1) {
             for (int i = 1; i < yMax - yMin; i++) {
                 if (!(chessComponents[xMax - i][yMin + i] instanceof EmptySlotComponent)) {
                     return false;
@@ -102,7 +104,18 @@ public class BishopChessComponent extends ChessComponent {
         }
         return true;
     }
-
+//    public void allCanMoveTo(ChessComponent[][] allCanChessboard){
+//        for (int i = 0; i < 8; i++) {
+//                    for (int j = 0; j < 8; j++) {
+//                        ChessboardPoint chessboardPoint =new ChessboardPoint(i,j) ;
+//                        if (canMoveTo(allCanChessboard,chessboardPoint)){
+////                            chessComponent.getChessComponents()[chessboardPoint.getX()][chessboardPoint.getY()]
+////                            getChessComponents()[allCan.getX()][allCan.getY()].getChessComponents();
+//                            System.out.println(i+","+j);
+//                        }
+//                    }
+//                }
+//    }
 
 //        if (source.getX() == destination.getX()) {
 //            int row = source.getX();

@@ -76,7 +76,17 @@ public class RookChessComponent extends ChessComponent {
     @Override
     public boolean canMoveTo(ChessComponent[][] chessComponents, ChessboardPoint destination) {
         ChessboardPoint source = getChessboardPoint();
-        if (source.getX() == destination.getX()) {
+        int x = source.getX();
+        int y = source.getY();
+        int x1 = destination.getX();
+        int y1 = destination.getY();
+        int xMin = Math.min(x, x1);
+        int xMax = Math.max(x, x1);
+        int yMin = Math.min(y, y1);
+        int yMax = Math.max(y, y1);
+        if (chessComponents[x][y].getChessColor().equals(chessComponents[x1][y1].getChessColor())){
+            return false;
+        }else if (source.getX() == destination.getX()) {
             int row = source.getX();
             for (int col = Math.min(source.getY(), destination.getY()) + 1;
                  col < Math.max(source.getY(), destination.getY()); col++) {
@@ -97,6 +107,18 @@ public class RookChessComponent extends ChessComponent {
         }
         return true;
     }
+//    public void allCanMoveTo(ChessComponent[][] allCanChessboard){
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                ChessboardPoint chessboardPoint =new ChessboardPoint(i,j) ;
+//                if (canMoveTo(allCanChessboard,chessboardPoint)){
+////                            chessComponent.getChessComponents()[chessboardPoint.getX()][chessboardPoint.getY()]
+////                            getChessComponents()[allCan.getX()][allCan.getY()].getChessComponents();
+//                    System.out.println(i+","+j);
+//                }
+//            }
+//        }
+//    }
 
     /**
      * 注意这个方法，每当窗体受到了形状的变化，或者是通知要进行绘图的时候，就会调用这个方法进行画图。

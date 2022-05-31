@@ -55,6 +55,7 @@ public class ClickController extends Component {
         if (first == null) {
             if (handleFirst(chessComponent)) {
                 chessComponent.setSelected(true);
+//                chessComponent.allCanMoveTo(chessboard.getChessComponents());
                 first = chessComponent;
                 first.repaint();
             }
@@ -74,17 +75,36 @@ public class ClickController extends Component {
                     JOptionPane.showMessageDialog(this,
                             "The white player win",
                             "END", JOptionPane.INFORMATION_MESSAGE);
+                    counter++;
+                    ChessGameFrame.i=30;
+
+
+                    first.setSelected(false);
+                    first = null;
+
                     return;
                 }else if (!(graph.get(counter).contains("k"))){
                     JOptionPane.showMessageDialog(this,
                             "The black player win",
                             "END", JOptionPane.INFORMATION_MESSAGE);
+                    counter++;
+                    ChessGameFrame.i=30;
+
+
+                    first.setSelected(false);
+                    first = null;
                     return;
                 }else if (graph.get(counter).equals("00K00B0r\n0000000r\n000000q0\n0000000P\n00000000\n00000000\n"+
                         "00P00000\n00k0000R\nw")){
                     JOptionPane.showMessageDialog(this,
                             "The black player win",
                             "END", JOptionPane.INFORMATION_MESSAGE);
+                    counter++;
+                    ChessGameFrame.i=30;
+
+
+                    first.setSelected(false);
+                    first = null;
                     return;
                 }
                 counter++;

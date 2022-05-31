@@ -84,7 +84,9 @@ public class PawnChessComponent extends ChessComponent {
         int xMax = Math.max(x, x1);
         int yMin = Math.min(y, y1);
         int yMax = Math.max(y, y1);
-        if (getChessColor() == ChessColor.BLACK) {
+        if (chessComponents[x][y].getChessColor().equals(chessComponents[x1][y1].getChessColor())){
+            return false;
+        }else if (getChessColor() == ChessColor.BLACK) {
             if (x == 1) {
                 if (x1 - x == 1 && y == y1 && chessComponents[x + 1][y] instanceof EmptySlotComponent) {
                     return true;
@@ -136,25 +138,19 @@ public class PawnChessComponent extends ChessComponent {
             }
         }
     }
-//        if (source.getX() == destination.getX()) {
-//            int row = source.getX();
-//            for (int col = Math.min(source.getY(), destination.getY()) + 1;
-//                 col < Math.max(source.getY(), destination.getY()); col++) {
-//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-//                    return false;
+
+//    public void allCanMoveTo(ChessComponent[][] allCanChessboard){
+//        for (int i = 0; i < 8; i++) {
+//            for (int j = 0; j < 8; j++) {
+//                ChessboardPoint chessboardPoint =new ChessboardPoint(i,j) ;
+//                if (canMoveTo(allCanChessboard,chessboardPoint)){
+////                            chessComponent.getChessComponents()[chessboardPoint.getX()][chessboardPoint.getY()]
+////                            getChessComponents()[allCan.getX()][allCan.getY()].getChessComponents();
+//                    System.out.println(i+","+j);
 //                }
 //            }
-//        } else if (source.getY() == destination.getY()) {
-//            int col = source.getY();
-//            for (int row = Math.min(source.getX(), destination.getX()) + 1;
-//                 row < Math.max(source.getX(), destination.getX()); row++) {
-//                if (!(chessComponents[row][col] instanceof EmptySlotComponent)) {
-//                    return false;
-//                }
-//            }
-//        } else { // Not on the same row or the same column.
-//            return false;
 //        }
+//    }
 
 
     /**

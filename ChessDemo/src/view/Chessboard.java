@@ -62,6 +62,10 @@ public class Chessboard extends JComponent {
         this.statusLabel = statusLabel;
     }
 
+    public int getCHESS_SIZE() {
+        return CHESS_SIZE;
+    }
+
     public Chessboard(int width, int height) {
         setLayout(null); // Use absolute layout.
         setSize(width, height);
@@ -156,6 +160,9 @@ public class Chessboard extends JComponent {
     public ChessComponent[][] getChessComponents() {
         return chessComponents;
     }
+    public ChessComponent getChessComponentsxy(int x,int y) {
+        return chessComponents[x][y];
+    }
 
     public ChessColor getCurrentColor() {
         return currentColor;
@@ -185,7 +192,40 @@ public class Chessboard extends JComponent {
         chess1.repaint();
         chess2.repaint();
     }
+    public void swapChessComponentsWhite(ChessComponent chess1, ChessComponent chess2) {
+        // Note that chess1 has higher priority, 'destroys' chess2 if exists.
+//        if (!(chess2 instanceof EmptySlotComponent)) {
+//            remove(chess2);
+//            add(chess2 = new EmptySlotComponent(chess2.getChessboardPoint(), chess2.getLocation(), clickController, CHESS_SIZE));
+//            remove(chess1);
+//            add(chess1 = new RookChessComponent(chess1.getChessboardPoint(),chess1.getLocation(),ChessColor.WHITE,clickController,CHESS_SIZE));
+//        }
+        chess1.swapLocation(chess2);
+        int row1 = chess1.getChessboardPoint().getX(), col1 = chess1.getChessboardPoint().getY();
+        chessComponents[row1][col1] = chess1;
+        int row2 = chess2.getChessboardPoint().getX(), col2 = chess2.getChessboardPoint().getY();
+        chessComponents[row2][col2] = chess2;
 
+        chess1.repaint();
+        chess2.repaint();
+    }
+    public void swapChessComponentsBlack(ChessComponent chess1, ChessComponent chess2) {
+        // Note that chess1 has higher priority, 'destroys' chess2 if exists.
+//        if (!(chess2 instanceof EmptySlotComponent)) {
+//            remove(chess2);
+//            add(chess2 = new EmptySlotComponent(chess2.getChessboardPoint(), chess2.getLocation(), clickController, CHESS_SIZE));
+//            remove(chess1);
+//            add(chess1 = new RookChessComponent(chess1.getChessboardPoint(),chess1.getLocation(),ChessColor.WHITE,clickController,CHESS_SIZE));
+//        }
+        chess1.swapLocation(chess2);
+        int row1 = chess1.getChessboardPoint().getX(), col1 = chess1.getChessboardPoint().getY();
+        chessComponents[row1][col1] = chess1;
+        int row2 = chess2.getChessboardPoint().getX(), col2 = chess2.getChessboardPoint().getY();
+        chessComponents[row2][col2] = chess2;
+
+        chess1.repaint();
+        chess2.repaint();
+    }
     public void initiateEmptyChessboard() {
         for (int i = 0; i < chessComponents.length; i++) {
             for (int j = 0; j < chessComponents[i].length; j++) {
@@ -234,7 +274,11 @@ public class Chessboard extends JComponent {
         chessComponent.setVisible(true);
         putChessOnBoard(chessComponent);
     }
-
+    private void initEmptyOnBoard(int row, int col) {
+        ChessComponent chessComponent = new EmptySlotComponent(new ChessboardPoint(row, col), calculatePoint(row, col),  clickController, CHESS_SIZE);
+        chessComponent.setVisible(true);
+        putChessOnBoard(chessComponent);
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -243,7 +287,7 @@ public class Chessboard extends JComponent {
     }
 
 
-    private Point calculatePoint(int row, int col) {
+    public Point calculatePoint(int row, int col) {
         return new Point(col * CHESS_SIZE, row * CHESS_SIZE);
     }
 
